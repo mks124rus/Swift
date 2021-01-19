@@ -35,14 +35,41 @@ print("Возрастающий массив из 100 чисел:\n\n\(someArray
 //4. Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
 
 for i in someArray {
-    if (i % 2) == 0{
-        someArray.remove(at: someArray.firstIndex(of: i)!)
-    } else if (i % 3) != 0 {
+//    if (i % 2) == 0{
+//        someArray.remove(at: someArray.firstIndex(of: i)!)
+//    } else if (i % 3) != 0 {
+//        someArray.remove(at: someArray.firstIndex(of: i)!)
+//    }
+    if (i % 2 == 0) || (i % 3 != 0) {
         someArray.remove(at: someArray.firstIndex(of: i)!)
     }
 }
 print("Удаление из массива всех четных чисел и всех чисел, которые не делятся на 3:\n\(someArray)\n")
 
+///
+
+var someArray2 : [Int] = []
+for i in 1...20 {
+    someArray2.append(i)
+}
+print(someArray2)
+
+func even(number: Int) -> Bool {
+    return number % 2 == 0 ? true : false
+}
+func divOnThree(number: Int) -> Bool {
+    return number % 3 != 0 ? true : false
+}
+func deleteEvenAndDivOnThree (arrayGlobal: [Int]) -> [Int] {
+    var array = arrayGlobal
+    for elementArray in array {
+        if even(number: elementArray) || divOnThree(number: elementArray) {
+            array.remove(at: array.firstIndex(of: elementArray)!)
+        }
+    }
+    return array
+}
+print("Удаление из массива всех четных чисел и всех чисел, которые не делятся на 3:\n\(deleteEvenAndDivOnThree (arrayGlobal: someArray2))\n")
 
 //5. * Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 100 элементов.
 //Числа Фибоначчи определяются соотношениями Fn=Fn-1 + Fn-2.
