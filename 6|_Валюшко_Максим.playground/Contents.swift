@@ -14,13 +14,11 @@ class WashingCars:CustomStringConvertible {
     var washCost: Int
     var car: String
     var number: String
-    var howWash: String
     var description: String {
-        return car + " - " + number + " " + "(" + howWash + ")"
+        return car + " - " + number + " "
     }
-    init(car: String, number: String, howWash: String, washCost: Int) {
+    init(car: String, number: String, washCost: Int) {
         self.car = car
-        self.howWash = howWash
         self.number = number
         self.washCost = washCost
     }
@@ -48,25 +46,37 @@ struct Quene<Element:WashingCars> {
         }
         return washCost
     }
+
+    func filtred(function: (Element) -> Bool) -> [Element] {
+        var arrayFiltred = [Element]()
+        for i in items {
+            if function(i){
+                arrayFiltred.append(i)
+            }
+        }
+        return arrayFiltred
+    }
 }
     
-func enqueneCars(_ queneCollection: Quene<WashingCars>,_ car: String,_ number: String,_ howWash: String,_ washCost: Int) -> Quene<WashingCars> {
-   queneOfCars.enquene(WashingCars(car: car, number: number, howWash: howWash, washCost: washCost))
+func enqueneCars(_ queneCollection: Quene<WashingCars>,_ car: String,_ number: String,_ washCost: Int) -> Quene<WashingCars> {
+    queneOfCars.enquene(WashingCars(car: car, number: number, washCost: washCost))
     return queneOfCars
 }
 
 var queneOfCars = Quene()
 let printQueneOfCars = {print("Автомобили в очереди: \(queneOfCars.items)")}
 
-enqueneCars(queneOfCars, "Toyota", "904", "Верх", 250)
-enqueneCars(queneOfCars, "Audi", "777", "Верх, салон и коврики", 500)
-enqueneCars(queneOfCars, "BMW", "750", "Комплекс", 650)
-enqueneCars(queneOfCars, "Nissan", "440", "Салон", 200)
-enqueneCars(queneOfCars, "Lexus", "999", "Комплекс + полировка", 4500 )
+enqueneCars(queneOfCars, "Toyota", "904", 450)
+enqueneCars(queneOfCars, "Audi", "777", 550)
+enqueneCars(queneOfCars, "BMW", "750", 750)
+enqueneCars(queneOfCars, "Nissan", "440", 200)
+enqueneCars(queneOfCars, "Lexus", "999", 900 )
 
 
 printQueneOfCars()
-queneOfCars.totalCost
-queneOfCars[3]
+print("Общий заработок: \(queneOfCars.totalCost) рублей")
 queneOfCars.dequene()
 printQueneOfCars()
+
+let sortCars = queneOfCars.filtred(function: {$0.washCost > 300})
+print(sortCars)
